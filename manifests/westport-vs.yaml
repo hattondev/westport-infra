@@ -1,0 +1,22 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: westport-vs
+  labels:
+    app: westport
+    version: 0.0.1
+    backstage.io/kubernetes-id: westport
+spec:
+  gateways:
+  - istio-gateway/apps-gateway
+  hosts:
+  - westport.apps.wwtlab.net
+  http:
+  - name: primary
+    route:
+    - destination:
+        host: westport-svc
+        port:
+          number: 80
+      weight: 100
